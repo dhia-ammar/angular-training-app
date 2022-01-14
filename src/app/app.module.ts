@@ -1,18 +1,49 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SessionItemComponent } from './session-item/session-item.component';
+import { SessionItemListComponent } from './session-item-list/session-item-list.component';
+import { InscriptionDisabledDirectiveDirective } from './inscription-disabled-directive.directive';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FormsModule } from '@angular/forms';
+
+const appRoutes: Routes = [
+  {
+    path: 'list',
+    component: SessionItemListComponent,
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((x) => x.AdminModule),
+  },
+  {
+    path: '',
+    redirectTo: '/list',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SessionItemComponent,
+    SessionItemListComponent,
+    InscriptionDisabledDirectiveDirective,
+    PageNotFoundComponent,
   ],
   imports: [
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

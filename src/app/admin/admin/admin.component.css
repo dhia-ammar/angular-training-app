@@ -16,3 +16,17 @@ section > header > h1 {
 section > header .description {
   font-style: italic;
 }
+h1 {
+  color: #ffffff;
+}
+.description {
+  font-style: italic;
+  color: #ffffff;
+}
+.icon-list {
+  display: flex;
+  flex-direction: column;
+}
+.icon {
+  margin: 20px;
+}
